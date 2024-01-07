@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for ra-shoes-shop",
+  "main": "server.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "nodemon server.js",
+    "watch": "nodemon -w server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^3.0.1",
+    "koa": "^2.7.0",
+    "koa-body": "^4.1.1",
+    "koa-router": "^7.4.0",
+    "koa2-cors": "^2.0.6"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "node_modules",
+      "*.rest"
+    ]
+  }
+}
+
