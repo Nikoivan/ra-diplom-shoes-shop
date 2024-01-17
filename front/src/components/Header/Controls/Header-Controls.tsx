@@ -37,8 +37,8 @@ const HeaderControls = () => {
           className='header-controls-pic header-controls-cart'
           onClick={onCartHandler}
         >
-          {cart.itemsCount > 0 && (
-            <div className='header-controls-cart-full'>{cart.itemsCount}</div>
+          {!!cart.items?.length && (
+            <div className='header-controls-cart-full'>{cart.items.length}</div>
           )}
           <div className='header-controls-cart-menu'></div>
         </div>

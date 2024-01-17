@@ -7,7 +7,10 @@ import { ProductCardProps } from './Card/Product-Card';
 import ProductSizesControl from './SizesControl/Product-SizesControl';
 import { ProductItemSize } from './Sizes/Product-Sizes';
 import PreloadAndErrorControl from '../PreloadAndErrorControl/PreloadAndErrorControl';
+import { addToCart } from '../../assets/services/clients/cart.client';
 import './Product.css';
+import { useAppDispatch } from '../../store/store';
+import { cartActions } from '../../store/slices/cartSlice';
 
 export type ProductProps = {
   category: number;
@@ -16,6 +19,7 @@ export type ProductProps = {
   manufacturer: string;
   material: string;
   oldPrice: number;
+  id: number;
   reason: string;
   season: string;
   sizes: ProductItemSize[];
@@ -23,9 +27,10 @@ export type ProductProps = {
 } & ProductCardProps;
 
 export default function Product() {
-  const [quantity, setQuantity] = useState<number>(1);
+  const [count, setCount] = useState<number>(1);
   const [selectedSize, setSelectedSize] = useState<number>();
   const { baseUrl } = useContext(Context);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   const { data, isLoading, hasError } = useJsonFetch<ProductProps>(
@@ -34,20 +39,30 @@ export default function Product() {
 
   const onAddBtnClick = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(e);
-    //add to Cart in store
-    navigate('/cart');
+
+    if (data && typeof selectedSize === 'number') {
+      const productData = {
+        title: data?.title,
+        id: data.id,
+        size: data?.sizes[selectedSize].size,
+        count,
+        price: data?.price,
+      };
+
+      dispatch(cartActions.addToCart(productData));
+      navigate('/cart');
+    }
   };
 
   const onPlus = () => {
-    if (quantity < 10) {
-      setQuantity(quantity + 1);
+    if (count < 10) {
+      setCount(count + 1);
     }
   };
 
   const onMinus = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+    if (count > 1) {
+      setCount(count - 1);
     }
   };
 
@@ -104,7 +119,7 @@ export default function Product() {
               {data.sizes.some((item) => item.available) && (
                 <ProductSizesControl
                   sizes={data.sizes}
-                  quantity={quantity}
+                  quantity={count}
                   onMinus={onMinus}
                   onPlus={onPlus}
                   onAddBtnClick={onAddBtnClick}

@@ -7,17 +7,14 @@ export default function CatalogCategories({
 }: {
   categories: CategoriesProps;
 }) {
-  const onItemClick = (id?: number | null) => {
-    console.log(id);
-    // передать в глобальное состояние выбранную категорию
-    // для последующей загрузки элементов по категории
-  };
-
   return (
-    <ul className='catalog-categories nav justify-content-center'>
-      {[{ title: 'Все', selected: true }, ...categories].map((item, idx) => (
-        <CategoriesItem onItemClick={onItemClick} key={idx} {...item} />
-      ))}
-    </ul>
+    <>
+      <ul className='catalog-categories nav justify-content-center'>
+        {categories &&
+          [{ title: 'Все', id: null }, ...categories].map((item, idx) => (
+            <CategoriesItem key={idx} {...item} />
+          ))}
+      </ul>
+    </>
   );
 }

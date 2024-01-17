@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export type ProductCardProps = {
   category: number;
@@ -9,6 +9,8 @@ export type ProductCardProps = {
 };
 
 const ProductCard = ({ title, images, price, id }: ProductCardProps) => {
+  const location = useLocation();
+
   return (
     <div className='col-4'>
       <div className='card'>
@@ -16,7 +18,12 @@ const ProductCard = ({ title, images, price, id }: ProductCardProps) => {
         <div className='card-body'>
           <p className='card-text'>{title}</p>
           <p className='card-text'>{price} руб.</p>
-          <Link to={`catalog/${id}`} className='btn btn-outline-primary'>
+          <Link
+            to={
+              location.pathname.includes('catalog') ? `${id}` : `/catalog/${id}`
+            }
+            className='btn btn-outline-primary'
+          >
             Заказать
           </Link>
         </div>

@@ -35,7 +35,9 @@ const ProductSizesControl = ({
       {sizes.some((el) => el.available) && (
         <button
           className='btn btn-danger btn-block btn-lg'
-          onClick={onAddBtnClick}
+          onClick={(e) => {
+            onAddBtnClick(e);
+          }}
         >
           В корзину
         </button>

@@ -9,8 +9,8 @@ export default function CatalogProductsList({
 }) {
   return (
     <div className='row'>
-      {products.map((elem) => (
-        <ProductCard key={elem.id} {...elem} />
+      {products.map((elem, idx) => (
+        <ProductCard key={idx} {...elem} />
       ))}
     </div>
   );

@@ -1,4 +1,21 @@
+import CartItem from '../Item/CartItem';
+import { useAppDispatch, useAppSelector } from '../../../../store/store';
+import { cartActions } from '../../../../store/slices/cartSlice';
+
 export default function CartList() {
+  const { items } = useAppSelector((store) => store.cart);
+  const dispatch = useAppDispatch();
+
+  const totalPrice = items.length
+    ? items
+        .map((item) => item.price * item.count)
+        .reduce((acc, item) => acc + item)
+    : 0;
+
+  const removeHadler = (id: number) => {
+    dispatch(cartActions.removeFromCart(id));
+  };
+
   return (
     <section className='cart'>
       <h2 className='text-center'>Корзина</h2>
@@ -15,24 +32,14 @@ export default function CartList() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td scope='row'>1</td>
-            <td>
-              <a href='/products/1.html'>Босоножки 'MYER'</a>
-            </td>
-            <td>18 US</td>
-            <td>1</td>
-            <td>34 000 руб.</td>
-            <td>34 000 руб.</td>
-            <td>
-              <button className='btn btn-outline-danger btn-sm'>Удалить</button>
-            </td>
-          </tr>
+          {items.map((item, idx) => (
+            <CartItem key={idx} {...item} removeHadler={removeHadler} />
+          ))}
           <tr>
             <td colSpan={5} className='text-right'>
               Общая стоимость
             </td>
-            <td>34 000 руб.</td>
+            <td>{totalPrice} руб.</td>
           </tr>
         </tbody>
       </table>

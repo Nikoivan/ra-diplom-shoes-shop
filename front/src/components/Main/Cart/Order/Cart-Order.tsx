@@ -6,6 +6,8 @@ import Context from '../../../../context/Context';
 import { RequestMethods } from '../../../../assets/services/customHooks/useJsonFetch';
 import ErrorMessage from '../../../ErrorMessage/ErrorMessage';
 import OrderSuccess from './Success/Order-Success';
+import { useAppDispatch, useAppSelector } from '../../../../store/store';
+import { cartActions } from '../../../../store/slices/cartSlice';
 
 export type CartOrderFormState = {
   phone: string;
@@ -33,6 +35,8 @@ export default function CartOrder() {
     address: '',
   });
   const { baseUrl } = useContext(Context);
+  const { items } = useAppSelector((store) => store.cart);
+  const dispatch = useAppDispatch();
 
   const onChangeHadler = (e: ChangeEvent<HTMLInputElement>) => {
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -48,13 +52,7 @@ export default function CartOrder() {
 
       const body = {
         owner: formState,
-        items: [
-          {
-            id: 1,
-            price: 34000,
-            count: 1,
-          },
-        ], //взять из localStorage компонента CartList
+        items,
       };
       const options = {
         method: RequestMethods.POST,
@@ -72,7 +70,7 @@ export default function CartOrder() {
         error: 'Ошибка отправки заказа. Попробуйте снова',
       }));
 
-      // добавить очистку после отправки заказа при успехе
+      dispatch(cartActions.clear());
     }
   };
 
