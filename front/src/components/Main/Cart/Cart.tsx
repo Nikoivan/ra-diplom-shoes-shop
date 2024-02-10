@@ -1,5 +1,5 @@
-import CartList from './List/Cart-List';
-import CartOrder from './Order/Cart-Order';
+import CartList from './List/List';
+import CartOrder from './Order/Order';
 import './Cart.css';
 
 const Cart = () => {

@@ -5,18 +5,23 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { catalogReducer } from './slices/catalogSlice';
 import { cartReducer } from './slices/cartSlice';
 import cartControl from './middleWares/cartControl';
+import createSagaMiddleware from 'redux-saga';
+import saga from './sagas/saga';
+
+const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
-  search: searchReducer,
-  catalog: catalogReducer,
-  cart: cartReducer,
+	search: searchReducer,
+	catalog: catalogReducer,
+	cart: cartReducer,
 });
 
 const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(cartControl),
+	reducer: rootReducer,
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware({ thunk: false }).concat(sagaMiddleware, cartControl),
 });
+
+sagaMiddleware.run(saga);
 
 export default store;
 

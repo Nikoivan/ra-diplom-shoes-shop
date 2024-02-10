@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
 import Context from '../../context/Context';
-import FooterMenu from './Menu/Footer-Menu';
-import FooterPay from './Pay/Footer-Pay';
+import FooterMenu from './Menu/Menu';
+import FooterPay from './Pay/Pay';
 import './Footer.css';
 
 export default function Footer() {
@@ -23,8 +23,7 @@ export default function Footer() {
           </section>
           <section>
             <div className='footer-copyright'>
-              2009-2019 © BosaNoga.ru — модный интернет-магазин обуви и
-              аксессуаров. Все права защищены.
+              2009-2019 © BosaNoga.ru — модный интернет-магазин обуви и аксессуаров. Все права защищены.
               <br />
               Доставка по всей России!
             </div>
@@ -36,9 +35,7 @@ export default function Footer() {
             <a className='footer-contacts-phone' href={`tel:${tel}`}>
               {tel}
             </a>
-            <span className='footer-contacts-working-hours'>
-              Ежедневно: с 09-00 до 21-00
-            </span>
+            <span className='footer-contacts-working-hours'>Ежедневно: с 09-00 до 21-00</span>
             <a className='footer-contacts-email' href={`mailto:${email}`}>
               {email}
             </a>

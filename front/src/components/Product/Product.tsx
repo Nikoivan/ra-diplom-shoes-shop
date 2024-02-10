@@ -3,9 +3,9 @@ import Context from '../../context/Context';
 import { useNavigate, useParams } from 'react-router';
 
 import useJsonFetch from '../../assets/services/customHooks/useJsonFetch';
-import { ProductCardProps } from './Card/Product-Card';
-import ProductSizesControl from './SizesControl/Product-SizesControl';
-import { ProductItemSize } from './Sizes/Product-Sizes';
+import { ProductCardProps } from './Card/Card';
+import ProductSizesControl from './SizesControl/SizesControl';
+import { ProductItemSize } from './Sizes/Sizes';
 import PreloadAndErrorControl from '../PreloadAndErrorControl/PreloadAndErrorControl';
 import { addToCart } from '../../assets/services/clients/cart.client';
 import './Product.css';
@@ -33,9 +33,7 @@ export default function Product() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data, isLoading, hasError } = useJsonFetch<ProductProps>(
-    `${baseUrl}/api/items/${id}`
-  );
+  const { data, isLoading, hasError } = useJsonFetch<ProductProps>(`${baseUrl}/api/items/${id}`);
 
   const onAddBtnClick = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -81,11 +79,7 @@ export default function Product() {
           <h2 className='text-center'>{data.title}</h2>
           <div className='row'>
             <div className='col-5'>
-              <img
-                src={data.images[0]}
-                className='img-fluid'
-                alt={data.title}
-              />
+              <img src={data.images[0]} className='img-fluid' alt={data.title} />
             </div>
             <div className='col-7'>
               <table className='table table-bordered'>

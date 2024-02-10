@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import Context from '../../../context/Context';
 import MenuItem from '../../MenuItem/MenuItem';
 import headerLogoUrl from '../../../assets/images/header-logo.png';
-import HeaderControls from '../Controls/Header-Controls';
+import HeaderControls from '../Controls/Controls';
 
 const NavBar = () => {
   const { title, menuMainItems } = useContext(Context);

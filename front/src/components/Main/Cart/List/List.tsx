@@ -1,4 +1,4 @@
-import CartItem from '../Item/CartItem';
+import CartItem from '../Item/Item';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { cartActions } from '../../../../store/slices/cartSlice';
 
@@ -6,11 +6,7 @@ export default function CartList() {
   const { items } = useAppSelector((store) => store.cart);
   const dispatch = useAppDispatch();
 
-  const totalPrice = items.length
-    ? items
-        .map((item) => item.price * item.count)
-        .reduce((acc, item) => acc + item)
-    : 0;
+  const totalPrice = items.length ? items.map((item) => item.price * item.count).reduce((acc, item) => acc + item) : 0;
 
   const removeHadler = (id: number) => {
     dispatch(cartActions.removeFromCart(id));

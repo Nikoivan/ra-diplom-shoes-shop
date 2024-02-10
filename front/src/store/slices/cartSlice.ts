@@ -1,10 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { CartItemProps } from '../../components/Main/Cart/Item/CartItem';
+import { CartItemProps } from '../../components/Main/Cart/Item/Item';
 import { RootState } from '../store';
-import {
-  getCart,
-  getReadyItems,
-} from '../../assets/services/clients/cart.client';
+import { getCart, getReadyItems } from '../../assets/services/clients/cart.client';
 
 const initialState: CartItemProps[] = [];
 
@@ -14,16 +11,11 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action: PayloadAction<CartItemProps>) => {
       const dublicateItem = state.items.find(
-        (item) =>
-          item.id === action.payload.id && item.size === action.payload.size
+        (item) => item.id === action.payload.id && item.size === action.payload.size
       );
       state.items = dublicateItem
         ? [
-            ...state.items.filter(
-              (item) =>
-                item.id !== action.payload.id &&
-                item.size !== action.payload.size
-            ),
+            ...state.items.filter((item) => item.id !== action.payload.id && item.size !== action.payload.size),
             {
               ...dublicateItem,
               count: dublicateItem.count + action.payload.count,

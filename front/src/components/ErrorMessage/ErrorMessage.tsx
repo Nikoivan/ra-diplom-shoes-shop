@@ -1,9 +1,9 @@
 import './ErrorMessage.css';
 
-export default function ErrorMessage({ errorText }: { errorText?: string }) {
-  return (
-    <div className='Error-Message'>
-      <h4>{errorText}</h4>
-    </div>
-  );
+export default function ErrorMessage({ error }: { error?: string }) {
+	return (
+		<div className='Error-Message'>
+			<h4>{error}</h4>
+		</div>
+	);
 }

@@ -1,11 +1,11 @@
 import { ChangeEvent, useContext, useState } from 'react';
 import cartOrderFormValidator from '../../../../assets/services/validators/validators';
-import CartForm from '../Form/Cart-Form';
+import CartForm from '../Form/Form';
 import Preloader from '../../../Preloader/Preloader';
 import Context from '../../../../context/Context';
 import { RequestMethods } from '../../../../assets/services/customHooks/useJsonFetch';
 import ErrorMessage from '../../../ErrorMessage/ErrorMessage';
-import OrderSuccess from './Success/Order-Success';
+import OrderSuccess from './Success/Success';
 import { useAppDispatch, useAppSelector } from '../../../../store/store';
 import { cartActions } from '../../../../store/slices/cartSlice';
 
